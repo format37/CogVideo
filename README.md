@@ -1,3 +1,58 @@
+### Installation by Alex
+Remote vm:
+```
+# Install docker
+sudo apt-get update
+sudo apt install git --fix-missing
+wget -qO- https://get.docker.com/ | sh
+sudo apt install python3-pip
+sudo pip install docker-compose
+
+# Setting up NVIDIA Container Toolkit
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+      && curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+      && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | \
+            sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+            sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+            
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+sudo systemctl restart docker
+
+# Clone and run
+git clone https://github.com/format37/CogVideo.git
+cd CogVideo
+sudo sh build_image.sh
+sh download.sh
+sudo sh run_image.sh
+
+# Copy model
+mkdir ../sharefs/
+mkdir ../sharefs/cogview-new/
+cp models/cogvideo* ../sharefs/cogview-new/
+
+# Inference
+sh scripts/inference_cogvideo_pipeline.sh
+```
+Finaly i got an error:
+```
+Please install apex to use fused_layer_norm, fall back to torch.nn.LayerNorm
+Please install apex to use FusedScaleMaskSoftmax, otherwise the inference efficiency will be greatly reduced
+WARNING: No training data specified
+using world size: 1 and model-parallel size: 1 
+Traceback (most recent call last):
+  File "cogvideo_pipeline.py", line 785, in <module>
+    args = get_args(args_list)
+  File "/usr/local/lib/python3.8/dist-packages/SwissArmyTransformer/arguments.py", line 385, in get_args
+    initialize_distributed(args)
+  File "/usr/local/lib/python3.8/dist-packages/SwissArmyTransformer/arguments.py", line 414, in initialize_distributed
+    torch.cuda.set_device(args.device)
+  File "/usr/local/lib/python3.8/dist-packages/torch/cuda/__init__.py", line 326, in set_device
+    torch._C._cuda_setDevice(device)
+  File "/usr/local/lib/python3.8/dist-packages/torch/cuda/__init__.py", line 229, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: No CUDA GPUs are available
+```
 # CogVideo
 
 This is the official repo for the paper: [CogVideo: Large-scale Pretraining for Text-to-Video Generation via Transformers](http://arxiv.org/abs/2205.15868).
