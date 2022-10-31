@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run --rm --name cog -it --gpus all  -v "${PWD}":/workspace cog
+sudo docker run --rm --name cog -it --gpus all  -v "${PWD}":/workspace cog
