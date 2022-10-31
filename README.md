@@ -28,6 +28,8 @@ sudo sh build_image.sh
 sh download.sh
 sudo sh run_image.sh
 
+apt-get install rsync
+
 # Copy model
 sh copy.sh
 
