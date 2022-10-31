@@ -29,9 +29,7 @@ sh download.sh
 sudo sh run_image.sh
 
 # Copy model
-mkdir ../sharefs/
-mkdir ../sharefs/cogview-new/
-cp models/cogvideo* ../sharefs/cogview-new/
+sh copy.sh
 
 # Inference
 sh scripts/inference_cogvideo_pipeline.sh
