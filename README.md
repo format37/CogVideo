@@ -19,6 +19,8 @@ sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
 
+sudo reboot now
+
 # Clone and run
 git clone https://github.com/format37/CogVideo.git
 cd CogVideo
