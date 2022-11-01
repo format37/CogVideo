@@ -30,30 +30,19 @@ sudo sh run_image.sh
 
 apt-get install rsync
 
+sh install_image_local_attention.sh
+
 # Copy model
 sh copy.sh
 
 # Inference
 sh scripts/inference_cogvideo_pipeline.sh
 ```
-Finaly i got an error:
+Finaly i got https://github.com/Sleepychord/Image-Local-Attention installation error:
 ```
-Please install apex to use fused_layer_norm, fall back to torch.nn.LayerNorm
-Please install apex to use FusedScaleMaskSoftmax, otherwise the inference efficiency will be greatly reduced
-WARNING: No training data specified
-using world size: 1 and model-parallel size: 1 
-Traceback (most recent call last):
-  File "cogvideo_pipeline.py", line 785, in <module>
-    args = get_args(args_list)
-  File "/usr/local/lib/python3.8/dist-packages/SwissArmyTransformer/arguments.py", line 385, in get_args
-    initialize_distributed(args)
-  File "/usr/local/lib/python3.8/dist-packages/SwissArmyTransformer/arguments.py", line 414, in initialize_distributed
-    torch.cuda.set_device(args.device)
-  File "/usr/local/lib/python3.8/dist-packages/torch/cuda/__init__.py", line 326, in set_device
-    torch._C._cuda_setDevice(device)
-  File "/usr/local/lib/python3.8/dist-packages/torch/cuda/__init__.py", line 229, in _lazy_init
-    torch._C._cuda_init()
-RuntimeError: No CUDA GPUs are available
+RuntimeError: 
+The detected CUDA version (11.3) mismatches the version that was used to compile
+PyTorch (11.7). Please make sure to use the same CUDA versions.
 ```
 # CogVideo
 
